@@ -1,0 +1,56 @@
+
+<ul class="pager">
+  <li><%= link_to("<< Back to Index", {:action => 'index'}, :class => 'back-link') %></li>
+</ul>
+
+
+<ul class="pager">
+<% if @post.id == 1 %>
+  <li class="previous disabled">
+    <%= link_to "<< Older", post_path(post_id = @post.id) %>
+  </li>
+<% else %>
+  <li class="previous">
+    <%= link_to "<< Older", post_path(post_id = @post.id - 1) %>
+  </li>
+<% end %>
+
+<% if @post.id == @posts.count %>
+  <li class="next disabled">
+    <%= link_to "Newer >>", post_path(post_id = @post.id) %>
+  </li>
+<% else %>
+  <li class="next">
+    <%= link_to "Newer >>", post_path(post_id = @post.id + 1) %>
+  </li>
+<% end %>
+</ul>
+
+
+<div class="post show">
+  <h2><%= @post.title %></h2>
+  <table class="table table-bordered">
+       <tr>
+        <th><span class="label">Post Position</span></th>
+        <td><%= @post.position %></td>     
+      </tr>
+      <tr>
+        <th><span class="label">Post Title</span></th>
+        <td><%= @post.title %></td>     
+      </tr>
+      <tr>
+        <th><span class="label">Post Tagline</span></th>
+        <td><%= @post.tagline %></td>
+      </tr>
+      <tr>
+        <th><span class="label">Post Visibility</span></th>
+        <td><%= @post.visible %></td>
+      </tr>
+      <tr>
+        <th><span class="label">Post Content</span></th>
+        <td><%= @post.content.html_safe %></td>
+      </tr>
+    </table>
+  </div>
+
+  <%= button_to "Edit Post", edit_post_path(@post.id), :method => :get, :class => "btn btn-primary" %>

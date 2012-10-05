@@ -1,0 +1,24 @@
+<h2>Posts</h2>
+
+<table class="table table-bordered">
+  <tr>
+    <th>Post Position</th>
+    <th>Post Title</th>
+    <th>Post Tagline</th>
+    <th>Post Visibility</th>
+    <th>Action</th>
+  </tr>
+
+  <% @posts.each do |post| %>
+    <tr>
+        <td><%= post.position %></td>
+        <td><%= post.title %></td>
+        <td><%= post.tagline %></td>
+        <td><%= post.visible %></td>
+        <td><%= button_to 'Show Post', post_path(post.id), :method => :get, :class => "btn btn-mini btn-info" %></td>
+    </tr>
+  <% end %>
+
+
+</table>
+<%= button_to "Add New Post", new_post_path, :class => "btn btn-primary" %>         

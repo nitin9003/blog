@@ -1,0 +1,21 @@
+  <p>
+    <%= f.label :position %>
+    <%= f.select(:position, 1..@post_count) %>
+  </p>
+  <p>
+    <%= f.label :visible %>
+    <%= f.check_box :visible, :class => "checkbox inline" %>
+  </p>
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title, :class => "input-xxlarge" %>
+  </p>
+
+  <p>
+    <%= f.label :tagline %>
+    <%= f.text_field :tagline, :class => "input-xxlarge" %>
+  </p>
+  <p>
+    <%= f.label :content  %>
+    <%= f.text_area :content, :size => "60x10", :class => "ckeditor" %>
+  </p>

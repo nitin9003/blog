@@ -1,0 +1,15 @@
+
+<%= form_for :post, :url => posts_path do |f| %>
+
+  <%= render :partial => 'form', :locals => { :f => f } %>
+
+  <p>
+    <%= f.submit :value => "Create Post", :class => "btn btn-primary" %>
+    <%= f.submit :value => "Cancel", :class => "btn" %>
+  </p>
+
+
+
+<% end %>
+
+

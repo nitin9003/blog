@@ -1,0 +1,11 @@
+
+<%= form_for :post, :url => {:action => 'update', :id => @post.id}, :method => :put do |f| %>
+  
+  <%= render :partial => 'form', :locals => { :f => f } %>
+ 
+  <p>
+    <%= f.submit :value => "Update Post", :class => "btn btn-primary" %>
+    <%= f.submit :value => "Cancel", :class => "btn" %>
+  </p>
+
+<% end %>
