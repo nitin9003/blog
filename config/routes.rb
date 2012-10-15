@@ -1,9 +1,13 @@
 Blog::Application.routes.draw do
  
-# root :to "admin#login" 
+ root :to => "admins#sign_in" 
   
   
-  resources :admins 
+  resources :admins do 
+    collection do
+      get "sign_in"
+    end
+  end
     
   resources :posts do 
     resources :comments

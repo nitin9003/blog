@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
- 
+
+  before_filter :confirm_login, :admin
+
   layout 'admin'
 
   def index
@@ -65,8 +67,10 @@ class PostsController < ApplicationController
 
   end
 
-  def delete
-    Post.delete(params[:id])
+  def destroy
+    @post = Post.find(params[:id])
+    @post.delete
+    redirect_to posts_path
   end
 
 

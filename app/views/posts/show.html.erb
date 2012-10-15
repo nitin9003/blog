@@ -5,50 +5,50 @@
 
 
 <ul class="pager">
-<% if @post.id == 1 %>
-  <li class="previous disabled">
-    <%= link_to "<< Older", post_path(post_id = @post.id) %>
+<% if post = @post.previous_post %>
+  <li class="previous">
+    <%= link_to "<< Older", post_path(post.id) %>
   </li>
 <% else %>
-  <li class="previous">
-    <%= link_to "<< Older", post_path(post_id = @post.id - 1) %>
+  <li class="previous disabled">
+    <%= link_to "<< Older", "#" %>
   </li>
 <% end %>
 
-<% if @post.id == @posts.count %>
-  <li class="next disabled">
-    <%= link_to "Newer >>", post_path(post_id = @post.id) %>
+<% if post = @post.next_post %>
+  <li class="next">
+    <%= link_to "Newer >>", post_path(post.id) %>
   </li>
 <% else %>
-  <li class="next">
-    <%= link_to "Newer >>", post_path(post_id = @post.id + 1) %>
+  <li class="next disabled">
+    <%= link_to "Newer >>", "#" %>
   </li>
 <% end %>
 </ul>
 
 
 <div class="post show">
-  <h2><%= @post.title %></h2>
+  <%= post_title_header(@post) %>
   <table class="table table-bordered">
        <tr>
-        <th><span class="label">Post Position</span></th>
-        <td><%= @post.position %></td>     
+        <%= label_for_position %> 
+        <%= post_position(@post) %>
       </tr>
       <tr>
-        <th><span class="label">Post Title</span></th>
-        <td><%= @post.title %></td>     
+        <%= label_for_title %>
+        <%= post_title_body(@post) %>
       </tr>
       <tr>
-        <th><span class="label">Post Tagline</span></th>
-        <td><%= @post.tagline %></td>
+        <%= label_for_tagline %>
+        <%= post_tagline(@post) %>
       </tr>
       <tr>
-        <th><span class="label">Post Visibility</span></th>
-        <td><%= @post.visible %></td>
+        <%= label_for_visible %>
+        <%= post_visible(@post) %>
       </tr>
       <tr>
-        <th><span class="label">Post Content</span></th>
-        <td><%= @post.content.html_safe %></td>
+        <%= label_for_content %>
+        <%= post_content(@post) %>
       </tr>
     </table>
   </div>

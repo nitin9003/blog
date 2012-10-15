@@ -46,10 +46,11 @@
           </a>
           <a class="brand" href="#">Blog</a>
           <div class="container nav-collapse">
-            <ul class="nav">
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
+            <ul class="nav pull-right">
+              <% if session[:admin_id] %>
+                <li><h4 class="text-success">Logged in as admin: <%=  %></h4></li>
+                <li class="divider-vertical"><%= link_to "Sign Out", {:controller => "admins", :action => 'destroy'}, :method => :delete  %></li>
+              <% end %>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

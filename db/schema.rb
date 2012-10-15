@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(:version => 20121001091703) do
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id"
-    t.integer  "user_id"
     t.integer  "position"
     t.string   "title",      :null => false
     t.text     "content",    :null => false
@@ -35,7 +34,6 @@ ActiveRecord::Schema.define(:version => 20121001091703) do
   end
 
   add_index "comments", ["post_id"], :name => "index_comments_on_post_id"
-  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "posts", :force => true do |t|
     t.integer  "admin_id"

@@ -1,10 +1,10 @@
 class CommentsController < ApplicationController
 
- 
+  before_filter :find_post 
   layout 'admin'
 
   def index
-    @comments = Comment.all
+    @comments = @post.comment.all
 
     respond_to do |format|
       format.html
@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
   end
 
   def new
-    @comment = Comment.new
+    @comment = @post.comment.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
 
   def create
 
-    @comment = Comment.new(params[:comment])
+    @comment = @post.comment.new(params[:comment])
 
     respond_to do |format|
       if @comment.save
@@ -48,6 +48,11 @@ class CommentsController < ApplicationController
     Comment.delete(params[:id])
   end
 
+private
 
+  def find_post
+    @post = Post.find(:id)
+    puts @post
+  end
 
 end
