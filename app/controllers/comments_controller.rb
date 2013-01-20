@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   layout 'admin'
 
   def index
-    @comments = @post.comment.all
+    @comments = @post.comments.all
 
     respond_to do |format|
       format.html
@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
   end
 
   def new
-    @comment = @post.comment.new
+    @comment = @post.comments.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -24,35 +24,51 @@ class CommentsController < ApplicationController
 
 
   def create
+puts "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+puts @post.id
+puts params[:comment].inspect
 
-    @comment = @post.comment.new(params[:comment])
+   
+      if request.referer.to_s.include?('post') 
+        @post.comments.create(params[:comment])
+          redirect_to :back
+      elsif request.referer.to_s.include?('blog')
 
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to posts_path, notice: "New category has been created" }
-        format.json { render json: @comment.to_json }
+        @post.comments.create(params[:comment])
+          redirect_to :back
       else
-        format.html { render action: "new"}
-        format.json { render json: @comment.errors }
+        render action: "comments/new"
       end
-    end
   end
 
   def edit
+     @comment = @post.comments.find(params[:id])
   end
 
   def update
+    @comment = @post.comments.find(params[:id])
+
+    respond_to do |format|
+      if @comment.update_attributes(params[:comment])
+        format.html { redirect_to dashboard_path(@post.id), :notice => "Comment has been updated"}
+        format.json { render json: @post.to_json }
+      else
+        format.html { render action: "edit"}
+        format.json { render json: @comment.errors }
+      end
+    end
+
   end
 
-  def delete
-    Comment.delete(params[:id])
+  def destroy
+    @comment = @post.comments.find(params[:id]) 
+    @comment.delete
   end
 
 private
 
   def find_post
-    @post = Post.find(:id)
-    puts @post
+    @post = Post.find(params[:post_id])
   end
 
 end

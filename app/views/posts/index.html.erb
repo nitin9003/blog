@@ -6,6 +6,7 @@
     <th>Post Title</th>
     <th>Post Tagline</th>
     <th>Post Visibility</th>
+    <th>Number of Comments</th>
     <th>Action</th>
   </tr>
   <% post_count = @posts.count %>
@@ -16,6 +17,7 @@
         <%= post_title_body(post) %>
         <%= post_tagline(post) %>
         <%= post_visible(post) %>
+        <%= post_comments_count(post) %>
         <td><%= button_to 'Show Post', post_path(post.id), :method => :get, :class => "btn btn-mini btn-info" %></td>
         <td><%= button_to 'Delete Post', post_path(post.id), :confirm => "Are you sure you want to delete this post?", :method => :delete, :class => "btn btn-mini btn-danger" %></td>
     </tr>

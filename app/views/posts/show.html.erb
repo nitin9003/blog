@@ -53,4 +53,54 @@
     </table>
   </div>
 
-  <%= button_to "Edit Post", edit_post_path(@post.id), :method => :get, :class => "btn btn-primary" %>
+
+<%#= form_for [@post, @rating] do |f| %>
+  
+  <%#= f.select("rating", "value", (1..5)) %>
+  <%#= f.submit "Rate this Article" %>
+
+<%# end %>
+
+<%= button_to "Edit Post", edit_post_path(@post.id), :method => :get, :class => "btn btn-primary" %>
+
+<h2>Comments</h2>
+
+<table class="table table-bordered">
+  <tr>
+    <th>Comment Position</th>
+    <th>Commenter Name</th>
+    <th>Commenter Email</th>
+    <th>Comment Title</th>
+    <th>Comment Content</th>
+    <th>Comment Visibility</th>
+    <th>Action</th>
+  </tr>
+
+  <% @comments.each do |comment| %>
+    <tr>
+        <%= comment_position(comment) %>
+        <%= commenter_name(comment) %>
+        <%= commenter_email_id(comment) %>
+        <%= comment_content(comment) %>
+        <%= comment_visible(comment) %>
+        <td><%= button_to 'Edit Comment', edit_post_comment_path(@post.id, comment.id), :method => :get, :class => "btn btn-mini btn-info" %></td>
+        <td><%= button_to 'Delete Comment', post_comment_path(@post.id, comment.id), :confirm => "Are you sure you want to delete this comment?", :method => :delete, :class => "btn btn-mini btn-danger" %></td>
+    </tr>
+  <% end %>
+
+
+</table>
+
+ <div class="form-horizontal">
+  <%= form_for :comment, :url => post_comments_path(@post.id), :method => "post" do |f| %>
+    <%= render :partial => 'comments/form', :locals => { :f => f } %>
+     <p>
+        <%= f.submit :value => "Create Comment", :class => "btn btn-primary" %>
+        <%= submit_tag "Cancel", :name => 'cancel', :class => "btn" %>
+     </p>
+
+  </div>  
+<% end %>
+
+
+

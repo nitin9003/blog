@@ -6,10 +6,12 @@
   <script type = 'text/javascript'>
     var CKEDITOR_BASEPATH = '/assets/ckeditor/';
   </script>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%#= javascript_include_tag "ckeditor/ckeditor.js" %>
-  <%= csrf_meta_tags %>
+  	<%= stylesheet_link_tag    "application", :media => "all" %>
+	<%= javascript_include_tag "application" %>
+	<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+	<%= javascript_include_tag 'rails' %>
+  	<%#= javascript_include_tag "ckeditor/ckeditor.js" %>
+  	<%= csrf_meta_tags %>
 </head>
 <body>
 

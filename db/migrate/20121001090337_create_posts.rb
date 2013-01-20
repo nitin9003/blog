@@ -6,7 +6,7 @@ class CreatePosts < ActiveRecord::Migration
       t.string :title, :null => false
       t.string :tagline
       t.text :content, :null => false
-      t.boolean :visible
+      t.boolean :visible, :default => false
       t.timestamps
     end
     add_index("posts", "admin_id")

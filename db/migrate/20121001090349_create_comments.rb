@@ -3,12 +3,11 @@ class CreateComments < ActiveRecord::Migration
     create_table :comments do |t|
       t.references :post
    #   t.references :user
-      t.integer :position
-      t.string :title, :null => false
+      t.string :title
       t.text :content, :null => false
       t.string :name
       t.string :email, :null => false
-      t.boolean :visible
+      t.boolean :visible, :default => false
       t.timestamps
     end
     add_index("comments", "post_id")

@@ -1,8 +1,12 @@
 Blog::Application.routes.draw do
  
+  devise_for :users
+
  root :to => "admins#sign_in" 
   
-  
+
+  resources :dashboards
+
   resources :admins do 
     collection do
       get "sign_in"
@@ -11,11 +15,16 @@ Blog::Application.routes.draw do
     
   resources :posts do 
     resources :comments
+    resources :ratings
   end
+  
+  resources :public
+  
+  resources :blogs
 
-  resources :users do
-    resources :comments
-  end
+ # resources :users do
+ #   resources :comments
+ # end
 
  
  

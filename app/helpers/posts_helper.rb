@@ -38,6 +38,10 @@ module PostsHelper
     content_tag :td, post.visible
   end
 
+  def post_comments_count(post)
+    content_tag :td, post.comments.count
+  end
+
   def label_for_content
     content_tag(:th, content_tag(:span, "Post Content", :class => 'label') )
   end

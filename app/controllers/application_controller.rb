@@ -12,4 +12,6 @@ class ApplicationController < ActionController::Base
   def admin
     @admin ||= Admin.find_by_id(session[:admin_id]) if session[:admin_id]
   end
+
+  helper_method :admin
 end

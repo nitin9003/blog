@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  before_filter :confirm_login, :admin
+  before_filter :confirm_login, :admin, :check_for_cancel
 
   layout 'admin'
 
@@ -42,9 +42,8 @@ class PostsController < ApplicationController
   def show
     @posts = Post.all
     @post = Post.find(params[:id])
+    @comments = @post.comments.all
   end
-
-
 
   def edit
     @post_count = Post.count
@@ -57,7 +56,7 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       if @post.update_attributes(params[:post])
-        format.html { redirect_to post_path(@post.id), :notice => "Post has been updated"}
+        format.html { redirect_to dashboard_path(@post.id), :notice => "Post has been updated"}
         format.json { render json: @post.to_json }
       else
         format.html { render action: "edit"}
@@ -73,5 +72,16 @@ class PostsController < ApplicationController
     redirect_to posts_path
   end
 
+  def check_for_cancel
+    unless params[:cancel].blank?
+      redirect_to posts_path
+    end
+  end
+
+  def rating
+    @post = Post.find(:post_id)
+    @past_rating = @post.rating
+    @current_rating = params[:rating]
+  end
 
 end

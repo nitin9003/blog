@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121001091703) do
+ActiveRecord::Schema.define(:version => 20121106103845) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -23,14 +23,13 @@ ActiveRecord::Schema.define(:version => 20121001091703) do
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id"
-    t.integer  "position"
-    t.string   "title",      :null => false
-    t.text     "content",    :null => false
+    t.string   "title"
+    t.text     "content",                       :null => false
     t.string   "name"
-    t.string   "email",      :null => false
-    t.boolean  "visible"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "email",                         :null => false
+    t.boolean  "visible",    :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "comments", ["post_id"], :name => "index_comments_on_post_id"
@@ -38,28 +37,39 @@ ActiveRecord::Schema.define(:version => 20121001091703) do
   create_table "posts", :force => true do |t|
     t.integer  "admin_id"
     t.integer  "position"
-    t.string   "title",      :null => false
+    t.string   "title",                         :null => false
     t.string   "tagline"
-    t.text     "content",    :null => false
-    t.boolean  "visible"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.text     "content",                       :null => false
+    t.boolean  "visible",    :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "posts", ["admin_id"], :name => "index_posts_on_admin_id"
 
-  create_table "users", :force => true do |t|
-    t.string   "f_name"
-    t.string   "l_name"
-    t.boolean  "sex"
-    t.date     "dob"
-    t.string   "email",           :null => false
-    t.string   "hashed_password", :null => false
-    t.string   "salt"
-    t.boolean  "visible"
-    t.text     "about_user"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+  create_table "ratings", :force => true do |t|
+    t.integer  "post_id"
+    t.integer  "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
+
+  create_table "users", :force => true do |t|
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end
